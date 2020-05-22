@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  NNExcelView
+
+  Created by Bin Shang on 2019/12/13.
+  Copyright © 2019 CocoaPods. All rights reserved.
+*/
+CFBundleDisplayName = "Swift AppTemplate";
+NSCameraUsageDescription ="App need iphone camera'access";

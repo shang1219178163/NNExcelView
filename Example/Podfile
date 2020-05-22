@@ -1,0 +1,33 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '9.0'
+use_frameworks!
+
+target 'NNExcelView_Example' do
+  pod 'NNExcelView', :path => '../'
+
+  # pod 'Alamofire'
+  # pod 'AlamofireImage'
+  # pod 'IQKeyboardManagerSwift'
+  # pod 'Kingfisher'
+  # pod 'SDWebImage'
+  # pod 'MBProgressHUD'
+  # pod 'MMPopupView'
+  # pod 'MJRefresh'
+  # pod 'SnapKit'
+  # pod 'SnapKitExtend'
+  # pod 'SwiftExpand'
+  # pod 'HandyJSON'
+  # pod 'RxCocoa'
+  # pod 'RxSwift'
+
+  # pod ‘YYCache'
+  # pod 'YYCategories'
+  # pod 'YYModel'
+
+  target 'NNExcelView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
