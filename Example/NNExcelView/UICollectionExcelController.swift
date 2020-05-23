@@ -13,7 +13,7 @@ class UICollectionExcelController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "UIExcel"
+        navigationItem.title = "NNExcelView"
         view.backgroundColor = .white
        
         view.addSubview(excelView)
