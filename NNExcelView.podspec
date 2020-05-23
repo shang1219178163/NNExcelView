@@ -1,9 +1,9 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NNExcelView'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of NNExcelView.'
-  s.description      = 'TODO: Add long description of the pod here.'
+  s.version          = '1.0.0'
+  s.summary          = 'like Microsoft Excel(OC/Swift).'
+  s.description      = 'like Microsoft Excel(OC/Swift).'
 
   s.homepage         = 'https://github.com/shang1219178163/NNExcelView'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
@@ -16,9 +16,7 @@ Pod::Spec.new do |s|
   s.swift_version = "5.0"
   s.requires_arc = true
 
-  s.frameworks = 'UIKit', 'CoreFoundation', 'CoreText', 'CoreGraphics', 'CoreImage',
-    'CoreLocation','CoreTelephony', 'GLKit','QuartzCore', 'WebKit'
-
+  s.frameworks = 'UIKit', 'CoreFoundation'
   s.source_files = 'NNExcelView/Classes/**/*'
   
   # s.resource_bundles = {
@@ -26,6 +24,5 @@ Pod::Spec.new do |s|
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+   s.dependency 'SnapKit'
 end

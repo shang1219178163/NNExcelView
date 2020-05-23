@@ -1,0 +1,24 @@
+PODS:
+  - NNExcelView (1.0.0):
+    - SnapKit
+  - SnapKit (4.2.0)
+
+DEPENDENCIES:
+  - NNExcelView (from `../`)
+  - SnapKit
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - SnapKit
+
+EXTERNAL SOURCES:
+  NNExcelView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  NNExcelView: 79f7bdfe902ec43bdd1d7d8520de4c53bc72c634
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+
+PODFILE CHECKSUM: 4b04c728958b417ae6fe6151844d7f5151c24ab9
+
+COCOAPODS: 1.9.1

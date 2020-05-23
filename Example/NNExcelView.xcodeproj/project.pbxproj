@@ -11,6 +11,7 @@
 		146050ED23A3210200C10F34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 146050EF23A3210200C10F34 /* InfoPlist.strings */; };
 		146050F323A3212300C10F34 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 146050F523A3212300C10F34 /* Localizable.strings */; };
 		146050FB23A3228E00C10F34 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 146050F923A3228E00C10F34 /* LaunchScreen.xib */; };
+		1471B28D247816E800C70BEA /* UICollectionExcelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1471B28C247816E800C70BEA /* UICollectionExcelController.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* HomeViewController.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
@@ -30,7 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		06BB9C22DEE1DBF8B897BC99 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		06BB9C22DEE1DBF8B897BC99 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		146050B523A313C600C10F34 /* NNExcelView_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NNExcelView_Example.entitlements; sourceTree = "<group>"; };
 		146050E923A31FAD00C10F34 /* NSObject+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Helper.swift"; sourceTree = "<group>"; };
 		146050EE23A3210200C10F34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -38,6 +39,7 @@
 		146050F423A3212300C10F34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		146050F623A3212500C10F34 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		146050FA23A3228E00C10F34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		1471B28C247816E800C70BEA /* UICollectionExcelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionExcelController.swift; sourceTree = "<group>"; };
 		19D856A66FAE0FA7C4C740F7 /* Pods-NNExcelView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NNExcelView_Tests.release.xcconfig"; path = "Target Support Files/Pods-NNExcelView_Tests/Pods-NNExcelView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		2D92EAC505A46CBD73511613 /* Pods_NNExcelView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NNExcelView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* NNExcelView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NNExcelView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,8 +52,8 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		6D30CDA5286538C018105CE3 /* Pods-NNExcelView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NNExcelView_Example.debug.xcconfig"; path = "Target Support Files/Pods-NNExcelView_Example/Pods-NNExcelView_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7CFCB7A3F52AD471C00518CE /* Pods-NNExcelView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NNExcelView_Example.release.xcconfig"; path = "Target Support Files/Pods-NNExcelView_Example/Pods-NNExcelView_Example.release.xcconfig"; sourceTree = "<group>"; };
-		8A238D92EEA2535B955C007D /* NNExcelView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = NNExcelView.podspec; path = ../NNExcelView.podspec; sourceTree = "<group>"; };
-		AD85C80ACC36BF47C7CC40D6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		8A238D92EEA2535B955C007D /* NNExcelView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NNExcelView.podspec; path = ../NNExcelView.podspec; sourceTree = "<group>"; };
+		AD85C80ACC36BF47C7CC40D6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F53D4811322F02B4E8FFB1D9 /* Pods-NNExcelView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NNExcelView_Tests.debug.xcconfig"; path = "Target Support Files/Pods-NNExcelView_Tests/Pods-NNExcelView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FF0B36AC0CA1EAA405EC70AA /* Pods_NNExcelView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NNExcelView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -112,6 +114,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* HomeViewController.swift */,
+				1471B28C247816E800C70BEA /* UICollectionExcelController.swift */,
 				146050E923A31FAD00C10F34 /* NSObject+Helper.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
@@ -166,7 +169,6 @@
 				F53D4811322F02B4E8FFB1D9 /* Pods-NNExcelView_Tests.debug.xcconfig */,
 				19D856A66FAE0FA7C4C740F7 /* Pods-NNExcelView_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -362,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* HomeViewController.swift in Sources */,
+				1471B28D247816E800C70BEA /* UICollectionExcelController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				146050EA23A31FAD00C10F34 /* NSObject+Helper.swift in Sources */,
 			);
