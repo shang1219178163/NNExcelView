@@ -11,6 +11,14 @@ import NNExcelView
 
 class UICollectionExcelController: UIViewController{
     
+    lazy var excelView: NNExcelView = {
+        let excelView = NNExcelView(frame: self.view.bounds)
+//        excelView.lockColumn = 2
+        excelView.delegate = self
+        return excelView
+    }()
+    
+    // MARK: -lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "NNExcelView"
@@ -18,7 +26,7 @@ class UICollectionExcelController: UIViewController{
        
         view.addSubview(excelView)
                 
-        excelView.frame = CGRect(x: 0, y: 70, width: self.view.bounds.width, height: 300)
+        excelView.frame = CGRect(x: 0, y: 90, width: self.view.bounds.width, height: 300)
         excelView.reloadData()
     }
     
@@ -37,14 +45,6 @@ class UICollectionExcelController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
-
-    
-    lazy var excelView: NNExcelView = {
-        let excelView = NNExcelView(frame: self.view.bounds)
-//        excelView.lockColumn = 2
-        excelView.delegate = self
-        return excelView
-    }()
 }
 
 extension UICollectionExcelController: NNExcelViewDelegate {

@@ -75,7 +75,7 @@ import UIKit
                     attributes.zIndex = 1023
                 }
                 
-                print("\(#function){\(section), \(row)}, \(attributes.frame), \(attributes.zIndex)")
+//                print("\(#function){\(section), \(row)}, \(attributes.frame), \(attributes.zIndex)")
 //                if section != 0 && row >= lockColumn {
 //                    continue
 //                }
@@ -88,7 +88,6 @@ import UIKit
                     if xOffset > contentWidth {
                         contentWidth = xOffset
                     }
-//                    column = 0
                     xOffset = 0
                     yOffset += itemSize.height
                 }

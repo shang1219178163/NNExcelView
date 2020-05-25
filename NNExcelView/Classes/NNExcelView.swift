@@ -59,8 +59,8 @@ import SnapKit
 //        return collectionView
     }()
     
-    var headerView: UIView?
-    var footerView: UIView?
+//    var headerView: UIView?
+//    var footerView: UIView?
     
     public lazy var label: UILabel = {
         let view = UILabel(frame: .zero);
@@ -123,6 +123,7 @@ import SnapKit
         collectionView.collectionViewLayout = layout
         
         dataList.append(contentsOf: testList)
+        labelBottom.isHidden = true
     }
     
     required init?(coder aDecoder: NSCoder) {
