@@ -26,7 +26,23 @@ class UICollectionExcelController: UIViewController{
        
         view.addSubview(excelView)
                 
-        excelView.frame = CGRect(x: 0, y: 90, width: self.view.bounds.width, height: 300)
+//        let width = (UIScreen.main.bounds.width - 20)/3.0
+//        excelView.layout.itemSize = CGSize(width: width, height: 45)
+//        excelView.headerBackgroudColor = .white
+//        excelView.widthList = [width, width, width, ]
+////        excelView.titleList = ["全天", "", "", ]
+//
+//        excelView.label.text = "    全天"
+//        excelView.xGap = 0
+//        excelView.label.backgroundColor = UIColor.hexValue(0xF5F5F5)
+//
+//        excelView.dataList = [["08:00 - 20:00", "2元/小时", "封顶20元",],
+//                                   ["08:00 - 20:00", "2元/小时", "封顶20元", ],
+//                                    ]
+//        excelView.frame = CGRect(x: 10, y: 120, width: UIScreen.main.bounds.width - 20, height: 300)
+
+        excelView.frame = CGRect(x: 0, y: 120, width: self.view.bounds.width, height: 300)
+
         excelView.reloadData()
     }
     
@@ -53,4 +69,19 @@ extension UICollectionExcelController: NNExcelViewDelegate {
     }
     
     
+}
+extension UIColor{
+    /// [源]0x开头的16进制Int数字(无#前缀十六进制数表示，开头就是0x)
+    static func hexValue(_ hex: Int, a: CGFloat = 1.0) -> UIColor {
+        return UIColor(red: CGFloat((hex & 0xFF0000) >> 16)/255.0, green: CGFloat((hex & 0xFF00) >> 8)/255.0, blue: CGFloat(hex & 0xFF)/255.0, alpha: a)
+    }
+    
+    /// 线条默认颜色(同cell分割线颜色)
+    static var line: UIColor {
+        return UIColor.hexValue(0xe4e4e4)
+    }
+    
+    static var excelTitleBackgroudColor: UIColor {
+        return UIColor.hexValue(0xF5F5F5)
+    }
 }

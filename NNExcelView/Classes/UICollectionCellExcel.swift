@@ -24,6 +24,7 @@ import SnapKit
         contentView.addSubview(label)
         
         label.addSubview(lineTop)
+        label.addSubview(lineLeft)
         label.addSubview(lineBottom)
         label.addSubview(lineRight)
 
@@ -46,6 +47,11 @@ import SnapKit
         lineTop.snp.makeConstraints { (make) in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(0.5)
+        }
+        
+        lineLeft.snp.makeConstraints { (make) in
+            make.top.left.bottom.equalToSuperview()
+            make.width.equalTo(0.5)
         }
         
         lineBottom.snp.makeConstraints { (make) in
@@ -82,6 +88,12 @@ import SnapKit
         return view
     }()
     
+    lazy var lineLeft: UIView = {
+        let view = UIView(frame: .zero);
+        view.backgroundColor = .line
+        return view
+    }()
+    
     lazy var lineBottom: UIView = {
         let view = UIView(frame: .zero);
         view.backgroundColor = .line
@@ -105,6 +117,10 @@ extension UIColor{
     
     /// 线条默认颜色(同cell分割线颜色)
     static var line: UIColor {
-        return UIColor.hexValue(0xe4e4e4);
+        return UIColor.hexValue(0xe4e4e4)
+    }
+    
+    static var excelHeaderBackgroudColor: UIColor {
+        return UIColor.hexValue(0xF5F5F5)
     }
 }

@@ -86,16 +86,17 @@ import SnapKit
         }
     }
     public var xGap: CGFloat = 15;
-    
+    public var labelHeight: CGFloat = 30;
+
     public var titleList: [String] = [];
     public var dataList: [[String]] = [];
     public var widthList: [CGFloat] = [];
     public var lockColumn: Int = 1;
     
-//    var lockOffsetX: CGFloat = 0;
-    
     var indexP: IndexPath = IndexPath(row: 0, section: 0)
     
+    public var headerBackgroudColor: UIColor = .excelHeaderBackgroudColor
+
     lazy var testList: [[String]] = {
         let list = [
         ["名称","总数","剩余","IP","状态","状态1","状态2","状态3","状态4"],
@@ -136,7 +137,7 @@ import SnapKit
         if bounds.height <= 0.0 {
             return;
         }
-        let labHeight: CGFloat = label.isHidden ? 0.0 : 30
+        let labHeight: CGFloat = label.isHidden ? 0.0 : labelHeight
         label.frame = CGRect(x: xGap, y: 0, width: bounds.width - xGap*2, height: labHeight)
         collectionView.frame = CGRect(x: 0, y: label.frame.maxY, width: bounds.width, height: bounds.height - labHeight)
     }
@@ -212,7 +213,9 @@ extension NNExcelView: UICollectionViewDataSource, UICollectionViewDelegate{
         let title: String = dataList[indexPath.section][indexPath.row]
         cell.label.text = String(format:"%ditem",indexPath.row)
         cell.label.text = title
-
+        
+        cell.lineLeft.isHidden = indexPath.row > 0
+        cell.label.backgroundColor = indexPath.section == 0 ? headerBackgroudColor : .white
 //        cell.getViewLayer()
         return cell
    }
