@@ -18,86 +18,91 @@ import SnapKit
 @objcMembers public class NNExcelView: UIView{
     
     public weak var delegate: NNExcelViewDelegate?
-
+    ///一行可见显示数目
+    public var visibleNumOfRow: CGFloat = 3.0;
+    ///一行可见高度
+    public var visibleNumOfRowHeight: CGFloat = 45;
+    
     public lazy var layout: UICollectionLayoutExcel = {
         let layout = UICollectionLayoutExcel()
-        let itemW = (self.bounds.width - 5*5.0)/4.0
-        layout.itemSize = CGSize(width: itemW, height: 45)
+        layout.itemSize = CGSize(width: self.bounds.width/self.visibleNumOfRow, height: self.visibleNumOfRowHeight)
         return layout
     }()
     
     public lazy var collectionView: UICollectionView = {
-//        guard let collectionView = self.subView(UICollectionView.self) as? UICollectionView else {
             // 初始化
-            let layout = UICollectionViewFlowLayout()
-            let itemW = (self.bounds.width - 5*5.0)/4.0
-            layout.itemSize = CGSize(width: itemW, height: itemW)
-            layout.minimumLineSpacing = 5
-            layout.minimumInteritemSpacing = 5
-            //        layout.scrollDirection = .vertical
-            layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+//            let layout = UICollectionViewFlowLayout()
+//            let itemW = (self.bounds.width - 5*5.0)/4.0
+//            layout.itemSize = CGSize(width: itemW, height: itemW)
+//            layout.minimumLineSpacing = 5
+//            layout.minimumInteritemSpacing = 5
+     //        layout.scrollDirection = .vertical
+//            layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
             // 设置分区头视图和尾视图宽高
     //        layout.headerReferenceSize = CGSize(width: kScreenWidth, height: 60)
     //        layout.footerReferenceSize = CGSize(width: kScreenWidth, height: 60)
+        
+        let collectionView = UICollectionView(frame: CGRect(x:0, y:64, width:self.bounds.width, height:400), collectionViewLayout: self.layout)
+        collectionView.backgroundColor = .white
+        collectionView.showsVerticalScrollIndicator = true
+        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        // 注册cell
+        collectionView.register(UICollectionCellExcel.self, forCellWithReuseIdentifier: "UICTViewCellExcel")
+        return collectionView
+    }()
+    
+    public var inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
-            let collectionView = UICollectionView(frame: CGRect(x:0, y:64, width:self.bounds.width, height:400), collectionViewLayout: layout)
-            collectionView.backgroundColor = .white
-            collectionView.showsVerticalScrollIndicator = true
-            collectionView.showsHorizontalScrollIndicator = true
-            collectionView.delegate = self
-            collectionView.dataSource = self
-
-            // 注册cell
-            collectionView.register(UICollectionCellExcel.self, forCellWithReuseIdentifier: "UICTViewCellExcel")
-            // 注册headerView
-            collectionView.register(UICollectionCellExcel.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "UICollectionCellExcel"+"Header")
-            // 注册footView
-            collectionView.register(UICollectionCellExcel.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier:  "UICollectionCellExcel"+"Footer")
-            return collectionView
-            
-//        }
-//        return collectionView
-    }()
-    
-//    var headerView: UIView?
-//    var footerView: UIView?
-    
-    public lazy var label: UILabel = {
-        let view = UILabel(frame: .zero);
-        view.text = "👈左滑查看更多信息"
-        view.textColor = .gray;
-        view.textAlignment = .left;
-        view.font = UIFont.systemFont(ofSize: 13)
-        return view;
-    }()
-    
-    public lazy var labelBottom: UILabel = {
-        let view = UILabel(frame: .zero);
-        view.text = "👈左滑查看更多信息"
-        view.textColor = .gray;
-        view.textAlignment = .left;
-        view.font = UIFont.systemFont(ofSize: 13)
-        return view;
-    }()
-    
-    public var itemSize = CGSize(width: 80, height: 45){
+    public var headerView: UIView?{
         willSet{
-            layout.itemSize = newValue
+            guard let newValue = newValue else { return }
+            addSubview(newValue)
         }
     }
-    public var xGap: CGFloat = 15;
-    public var labelHeight: CGFloat = 30;
+    public var footerView: UIView?{
+        willSet{
+            guard let newValue = newValue else { return }
+            addSubview(newValue)
+        }
+    }
+    
+    private var indexP = IndexPath(row: 0, section: 0)
+
+    private var titleLabelHeight: CGFloat = 30;
+
+    public lazy var titleLabel: UILabel = {
+        let view = UILabel(frame: .zero);
+        view.text = "👈左滑查看更多信息"
+        view.textColor = .gray;
+        view.textAlignment = .left;
+        view.font = UIFont.systemFont(ofSize: 13)
+        return view;
+    }()
 
     public var titleList: [String] = [];
     public var dataList: [[String]] = [];
-    public var widthList: [CGFloat] = [];
-    public var lockColumn: Int = 1;
+    public var lockColumn: Int = 1{
+        willSet{
+            layout.lockColumn = lockColumn
+            collectionView.reloadData()
+        }
+    }
+    ///显示选择效果
+    public var canSelectItem: Bool = false
     
-    var indexP: IndexPath = IndexPath(row: 0, section: 0)
+    public var showTestData: Bool = false{
+        willSet{
+            dataList.removeAll()
+            dataList.append(contentsOf: testList)
+            reloadData()
+        }
+    }
     
     public var headerBackgroudColor: UIColor = .excelHeaderBackgroudColor
 
-    lazy var testList: [[String]] = {
+    public lazy var testList: [[String]] = {
         let list = [
         ["名称","总数","剩余","IP","状态","状态1","状态2","状态3","状态4"],
         ["ces1","0","0","3.4.5.6","027641081087","1","0","3.4.5.6","027641081087"],
@@ -117,14 +122,8 @@ import SnapKit
     public override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(label)
-        addSubview(labelBottom)
+        addSubview(titleLabel)
         addSubview(collectionView)
-        
-        collectionView.collectionViewLayout = layout
-        
-        dataList.append(contentsOf: testList)
-        labelBottom.isHidden = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -134,40 +133,57 @@ import SnapKit
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        if bounds.height <= 0.0 {
+        if bounds.height <= 10.0 {
             return;
         }
-        let labHeight: CGFloat = label.isHidden ? 0.0 : labelHeight
-        label.frame = CGRect(x: xGap, y: 0, width: bounds.width - xGap*2, height: labHeight)
-        collectionView.frame = CGRect(x: 0, y: label.frame.maxY, width: bounds.width, height: bounds.height - labHeight)
+        
+        var collectionViewTopOffset: CGFloat = 0
+        var collectionViewBomOffset: CGFloat = 0
+
+        if let headerView = headerView, headerView.isHidden == false {
+            headerView.snp.makeConstraints { (make) in
+                make.top.equalToSuperview().offset(inset.top);
+                make.left.equalToSuperview().offset(inset.left);
+                make.right.equalToSuperview().offset(-inset.right);
+                make.height.equalTo(headerView.bounds.height);
+            }
+            collectionViewTopOffset = headerView.bounds.height
+        } else {
+            if titleLabel.isHidden == false {
+                titleLabel.snp.makeConstraints { (make) in
+                    make.top.equalToSuperview().offset(inset.top);
+                    make.left.equalToSuperview().offset(inset.left);
+                    make.right.equalToSuperview().offset(-inset.right);
+                    make.height.equalTo(titleLabelHeight);
+                }
+                collectionViewTopOffset = titleLabelHeight
+            }
+        }
+        
+        if let footerView = footerView, footerView.isHidden == false {
+            footerView.snp.makeConstraints { (make) in
+                make.left.equalToSuperview().offset(inset.left);
+                make.right.equalToSuperview().offset(-inset.right);
+                make.bottom.equalToSuperview().offset(-inset.bottom);
+                make.height.equalTo(footerView.bounds.height);
+            }
+            collectionViewBomOffset = footerView.bounds.height
+        }
+        
+        collectionView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(collectionViewTopOffset);
+            make.left.equalToSuperview().offset(inset.left);
+            make.right.equalToSuperview().offset(-inset.right);
+            make.bottom.equalToSuperview().offset(-collectionViewBomOffset);
+        }
     }
-    
+    // MARK: -funtions
     public func reloadData() {
         if dataList.count <= 0 {
-            label.text = "暂无数据,请稍后重试";
+            titleLabel.text = "暂无数据,请稍后重试";
             return
         }
-        for e in dataList.enumerated() {
-            if widthList.count == 0 {
-                return
-            }
-            assert(e.element.count == widthList.count, "第\(e.offset)行item宽度数组个数和数组元素个数不相同")
-        }
-        
-        if widthList.count == 0 {
-            let count = max(titleList.count, dataList.first!.count)
-            widthList = [CGFloat](repeating: itemSize.width, count: count)
-        }
-        
-        layout.lockColumn = lockColumn;
-        
-        layout.itemAttributes.removeAll()
-        layout.columnWidths.removeAll()
-        layout.columnWidths.append(contentsOf: widthList)
-        
-//        let arrsub = layout.columnWidths.subarray(0, layout.lockColumn)
-//        lockOffsetX = arrsub.reduce(0) { $0 + $1 }
-        
+  
         if titleList.count > 0 && dataList.contains(titleList) == false {
             dataList.insert(titleList, at: 0)
         }
@@ -226,6 +242,9 @@ extension NNExcelView: UICollectionViewDataSource, UICollectionViewDelegate{
         let oldCell = collectionView.cellForItem(at: indexP) as? UICollectionCellExcel
         else { return }
         
+        if canSelectItem == false {
+            return
+        }
         if indexP != indexPath  {
             newCell.label.textColor = .systemBlue
 

@@ -14,6 +14,7 @@ class UICollectionExcelController: UIViewController{
     lazy var excelView: NNExcelView = {
         let excelView = NNExcelView(frame: self.view.bounds)
 //        excelView.lockColumn = 2
+        excelView.showTestData = true
         excelView.delegate = self
         return excelView
     }()
@@ -21,20 +22,37 @@ class UICollectionExcelController: UIViewController{
     // MARK: -lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "NNExcelView"
+        
         view.backgroundColor = .white
+        navigationItem.title = "NNExcelView"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(handleActionItem(_:)))
        
         view.addSubview(excelView)
-                
+        excelView.backgroundColor = .systemGreen
+
+        excelView.titleLabel.isHidden = true
+//        excelView.inset =  UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//        excelView.headerView = {
+//           let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
+//            view.backgroundColor = .systemRed
+//            return view
+//        }()
+//
+//        excelView.footerView = {
+//           let view = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
+//            view.backgroundColor = .systemOrange
+//            return view
+//        }()
+        
 //        let width = (UIScreen.main.bounds.width - 20)/3.0
 //        excelView.layout.itemSize = CGSize(width: width, height: 45)
 //        excelView.headerBackgroudColor = .white
 //        excelView.widthList = [width, width, width, ]
 ////        excelView.titleList = ["全天", "", "", ]
 //
-//        excelView.label.text = "    全天"
+//        excelView.titleLabel.text = "    全天"
 //        excelView.xGap = 0
-//        excelView.label.backgroundColor = UIColor.hexValue(0xF5F5F5)
+//        excelView.titleLabel.backgroundColor = UIColor.hexValue(0xF5F5F5)
 //
 //        excelView.dataList = [["08:00 - 20:00", "2元/小时", "封顶20元",],
 //                                   ["08:00 - 20:00", "2元/小时", "封顶20元", ],
@@ -49,6 +67,8 @@ class UICollectionExcelController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        excelView.lockColumn = 1
+        excelView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -61,6 +81,10 @@ class UICollectionExcelController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
+    
+    @objc func handleActionItem(_ item: UIBarButtonItem) {
+        excelView.reloadData()
+    }
 }
 
 extension UICollectionExcelController: NNExcelViewDelegate {
