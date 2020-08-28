@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NNExcelView'
-  s.version          = '1.4.0'
+  s.version          = '1.3.0'
   s.summary          = 'like Microsoft Excel(OC/Swift).'
   s.description      = 'like Microsoft Excel(OC/Swift).'
 
