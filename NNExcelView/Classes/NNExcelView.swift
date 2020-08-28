@@ -18,18 +18,20 @@ import SnapKit
 @objcMembers public class NNExcelView: UIView{
     
     public weak var delegate: NNExcelViewDelegate?
+    
+    public var block:((UICollectionView, IndexPath)->Void)?
     ///一行可见显示数目
     public var visibleNumOfRow: CGFloat = 3.0;
     ///一行可见高度
     public var itemSizeHeight: CGFloat = 45;
     
-    public lazy var layout: UICollectionLayoutExcel = {
+    private lazy var layout: UICollectionLayoutExcel = {
         let layout = UICollectionLayoutExcel()
         layout.itemSize = CGSize(width: self.bounds.width/self.visibleNumOfRow, height: self.itemSizeHeight)
         return layout
     }()
     
-    public lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
 //        // 初始化
 //        let layout = UICollectionViewFlowLayout()
 //        let itemW = (self.bounds.width - 5*5.0)/4.0
@@ -74,7 +76,7 @@ import SnapKit
 
     public lazy var titleLabel: UILabel = {
         let view = UILabel(frame: .zero);
-        view.text = "👈左滑查看更多信息"
+        view.text = "   👈左滑查看更多信息"
         view.textColor = .gray;
         view.textAlignment = .left;
         view.font = UIFont.systemFont(ofSize: 13)
@@ -240,13 +242,15 @@ extension NNExcelView: UICollectionViewDataSource, UICollectionViewDelegate{
 
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.excelView(collectionView, didSelectItemAt: indexPath)
-        guard let newCell = collectionView.cellForItem(at: indexPath) as? UICollectionCellExcel,
-        let oldCell = collectionView.cellForItem(at: indexP) as? UICollectionCellExcel
-        else { return }
+        block?(collectionView, indexPath)
         
         if canSelectItem == false {
             return
         }
+        
+        guard let newCell = collectionView.cellForItem(at: indexPath) as? UICollectionCellExcel,
+        let oldCell = collectionView.cellForItem(at: indexP) as? UICollectionCellExcel
+        else { return }
         if indexP != indexPath  {
             newCell.label.textColor = .systemBlue
 

@@ -16,8 +16,10 @@ class UICollectionExcelController: UIViewController{
 //        excelView.titleLabel.isHidden = true
 //        excelView.inset =  UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 //        excelView.lockColumn = 2
-        excelView.showTestData = true
         excelView.delegate = self
+        
+        excelView.showTestData = true
+        excelView.visibleNumOfRow = 4
         return excelView
     }()
     
