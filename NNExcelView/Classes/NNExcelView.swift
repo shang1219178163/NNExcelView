@@ -21,28 +21,28 @@ import SnapKit
     ///一行可见显示数目
     public var visibleNumOfRow: CGFloat = 3.0;
     ///一行可见高度
-    public var visibleNumOfRowHeight: CGFloat = 45;
+    public var itemSizeHeight: CGFloat = 45;
     
     public lazy var layout: UICollectionLayoutExcel = {
         let layout = UICollectionLayoutExcel()
-        layout.itemSize = CGSize(width: self.bounds.width/self.visibleNumOfRow, height: self.visibleNumOfRowHeight)
+        layout.itemSize = CGSize(width: self.bounds.width/self.visibleNumOfRow, height: self.itemSizeHeight)
         return layout
     }()
     
     public lazy var collectionView: UICollectionView = {
-            // 初始化
-//            let layout = UICollectionViewFlowLayout()
-//            let itemW = (self.bounds.width - 5*5.0)/4.0
-//            layout.itemSize = CGSize(width: itemW, height: itemW)
-//            layout.minimumLineSpacing = 5
-//            layout.minimumInteritemSpacing = 5
-     //        layout.scrollDirection = .vertical
-//            layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-            // 设置分区头视图和尾视图宽高
-    //        layout.headerReferenceSize = CGSize(width: kScreenWidth, height: 60)
-    //        layout.footerReferenceSize = CGSize(width: kScreenWidth, height: 60)
+//        // 初始化
+//        let layout = UICollectionViewFlowLayout()
+//        let itemW = (self.bounds.width - 5*5.0)/4.0
+//        layout.itemSize = CGSize(width: itemW, height: itemW)
+//        layout.minimumLineSpacing = 5
+//        layout.minimumInteritemSpacing = 5
+// //        layout.scrollDirection = .vertical
+//        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+//        // 设置分区头视图和尾视图宽高
+//        layout.headerReferenceSize = CGSize(width: kScreenWidth, height: 60)
+//        layout.footerReferenceSize = CGSize(width: kScreenWidth, height: 60)
         
-        let collectionView = UICollectionView(frame: CGRect(x:0, y:64, width:self.bounds.width, height:400), collectionViewLayout: self.layout)
+        let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: self.layout)
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = true
         collectionView.showsHorizontalScrollIndicator = true
@@ -152,7 +152,7 @@ import SnapKit
             if titleLabel.isHidden == false {
                 titleLabel.snp.makeConstraints { (make) in
                     make.top.equalToSuperview().offset(inset.top);
-                    make.left.equalToSuperview().offset(inset.left);
+                    make.left.equalToSuperview().offset(inset.left+15);
                     make.right.equalToSuperview().offset(-inset.right);
                     make.height.equalTo(titleLabelHeight);
                 }
@@ -176,6 +176,9 @@ import SnapKit
             make.right.equalToSuperview().offset(-inset.right);
             make.bottom.equalToSuperview().offset(-collectionViewBomOffset);
         }
+        
+        layout.itemSize = CGSize(width: (self.bounds.width - inset.left - inset.right)/self.visibleNumOfRow, height: self.itemSizeHeight)
+        collectionView.reloadData()
     }
     // MARK: -funtions
     public func reloadData() {
@@ -187,7 +190,6 @@ import SnapKit
         if titleList.count > 0 && dataList.contains(titleList) == false {
             dataList.insert(titleList, at: 0)
         }
-//        print("\(#function)_\(layout.columnWidths)_\(layout.columnCount)_\(widthList.count)_\(lockOffsetX)")
         collectionView.reloadData()
     }
     
