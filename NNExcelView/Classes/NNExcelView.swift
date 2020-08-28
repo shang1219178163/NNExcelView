@@ -152,7 +152,7 @@ import SnapKit
             if titleLabel.isHidden == false {
                 titleLabel.snp.makeConstraints { (make) in
                     make.top.equalToSuperview().offset(inset.top);
-                    make.left.equalToSuperview().offset(inset.left+15);
+                    make.left.equalToSuperview().offset(inset.left);
                     make.right.equalToSuperview().offset(-inset.right);
                     make.height.equalTo(titleLabelHeight);
                 }
