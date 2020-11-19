@@ -19,7 +19,9 @@ import SnapKit
     
     public weak var delegate: NNExcelViewDelegate?
     
+    public var cellItemBlock:((UILabel, IndexPath)->Void)?
     public var block:((UICollectionView, IndexPath)->Void)?
+
     ///一行可见显示数目
     public var visibleNumOfRow: CGFloat = 3.0;
     ///一行可见高度
@@ -236,6 +238,8 @@ extension NNExcelView: UICollectionViewDataSource, UICollectionViewDelegate{
         
         cell.lineLeft.isHidden = indexPath.row > 0
         cell.label.backgroundColor = indexPath.section == 0 ? headerBackgroudColor : .white
+        
+        cellItemBlock?(cell.label, indexPath)
 //        cell.getViewLayer()
         return cell
    }
