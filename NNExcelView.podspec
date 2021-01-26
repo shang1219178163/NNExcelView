@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'NNExcelView'
-  s.version          = '1.5.0'
+  s.version          = '1.5.1'
   s.summary          = 'like Microsoft Excel(OC/Swift).'
   s.description      = 'like Microsoft Excel(OC/Swift).'
 
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/shang1219178163/NNExcelView.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.swift_version = "5.0"
   s.requires_arc = true
 
