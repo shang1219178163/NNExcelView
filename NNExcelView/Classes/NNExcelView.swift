@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 @objc public protocol NNExcelViewDelegate: NSObjectProtocol{
-    @objc func excelView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath);
+    @objc func excelView(_ label: UILabel, didSelectItemAt indexPath: IndexPath);
 
 }
 
@@ -20,7 +20,7 @@ import SnapKit
     public weak var delegate: NNExcelViewDelegate?
     
     public var cellItemBlock:((UILabel, IndexPath)->Void)?
-    public var block:((UICollectionView, IndexPath)->Void)?
+    public var cellDidSelectBlock:((UILabel, IndexPath)->Void)?
 
     ///一行可见显示数目
     public var visibleNumOfRow: CGFloat = 3.0;
@@ -105,6 +105,10 @@ import SnapKit
     }
     
     public var headerBackgroudColor: UIColor = .excelHeaderBackgroudColor
+    
+    public var font: UIFont = UIFont.systemFont(ofSize: 15, weight: .light)
+    
+    public var textColor: UIColor = UIColor.black
 
     public lazy var testList: [[String]] = {
         let list = [
@@ -233,9 +237,11 @@ extension NNExcelView: UICollectionViewDataSource, UICollectionViewDelegate{
         }
         cell.indexP = indexPath
         let title: String = dataList[indexPath.section][indexPath.row]
-        cell.label.text = String(format:"%ditem",indexPath.row)
+        cell.label.text = String(format:"%ditem", indexPath.row)
         cell.label.text = title
-        
+        cell.label.textColor = textColor
+        cell.label.font = font
+
         cell.lineLeft.isHidden = indexPath.row > 0
         cell.label.backgroundColor = indexPath.section == 0 ? headerBackgroudColor : .white
         
@@ -245,8 +251,9 @@ extension NNExcelView: UICollectionViewDataSource, UICollectionViewDelegate{
    }
 
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.excelView(collectionView, didSelectItemAt: indexPath)
-        block?(collectionView, indexPath)
+        guard let cell = self.collectionView(collectionView, cellForItemAt: indexPath) as? UICollectionCellExcel else { return }
+        delegate?.excelView(cell.label, didSelectItemAt: indexPath)
+        cellDidSelectBlock?(cell.label, indexPath)
         
         if canSelectItem == false {
             return
